@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>Horizontal Scroll</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      main {
+        max-width: 600px;
+        width: 100%;
+        padding: 0 15px;
+      }
+
+      h1 {
+        margin: 1vh 0 10vh;
+        text-align: center;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      .wrapper {
+        max-width: 100%;
+        width: auto;
+        display: flex;
+        overflow-x: auto;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+      }
+
+      .pane {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        margin-right: 10px;
+      }
+
+      .pane:last-child {
+        margin-right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Horizontal Scroll</h1>
+      <div id="box" class="container">
+        <div class="wrapper">
+          <template>
+            <div class="pane">
+              <span></span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </main>
+    <script src="HorizontalScroll.js" charset="utf-8"></script>
+    <script>
+
+      let wrapper = document.querySelector(".wrapper");
+      new Promise (resolve => {
+        /// Render .pane
+        for (var i = 0; i <= 30; i++) {
+          let pane = document.createElement("div");
+          pane.classList.add("pane");
+          pane.innerText = i;
+          wrapper.appendChild(pane);
+        }
+        resolve();
+      })
+      .then(() => {
+        let hs = new HorizontalScroll(".wrapper");
+      })
+
+    </script>
+  </body>
+</html>
