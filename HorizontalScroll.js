@@ -6,8 +6,9 @@
  */
 
 class HorizontalScroll {
-  constructor(query) {
+  constructor(query, sensitivity) {
     this.query = query;
+    this.sensitivity = sensitivity;
     this.element = document.querySelector(this.query);
 
     if (!this.element) {
@@ -38,10 +39,9 @@ class HorizontalScroll {
 
     /// scroll
     this.element.onwheel = ev => {
-      let sensitivity = 1;
       let delta = ev.deltaY;
       let pos = this.element.scrollLeft;
-      this.element.scrollLeft = pos + delta * sensitivity;
+      this.element.scrollLeft = pos + delta * this.sensitivity;
     }
   }
 }
