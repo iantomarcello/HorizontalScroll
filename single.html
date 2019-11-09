@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>Horizontal Scroll</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="style.min.css" rel="stylesheet">
+  </head>
+  <body id="single">
+    <main>
+      <div class="headings">
+        <h1>Horizontal Scroll</h1>
+        <h3>Single Slides (with snap)</h3>
+      </div>
+      <div id="box" class="container">
+        <div id="sens-1" class="wrapper">
+          <p class="pane-heading">Sensitivity: 1</p>
+          <div class="pane-container">
+            <div class="pane-wrapper"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="HorizontalScroll.js" charset="utf-8"></script>
+    <script>
+
+      let populate = (selector, sensitivity) => {
+        let wrapper = document.querySelector(selector);
+        console.log(wrapper);
+        return new Promise (resolve => {
+          for (var i = 0; i <= 30; i++) {
+            let pane = document.createElement("div");
+            pane.classList.add("pane");
+            pane.innerText = i;
+            wrapper.appendChild(pane);
+          }
+          resolve();
+        })
+        .then(() => new HorizontalScroll(selector, sensitivity))
+      }
+
+      populate("#sens-1 .pane-wrapper", 3);
+
+    </script>
+  </body>
+</html>
