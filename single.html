@@ -23,12 +23,11 @@
         </div>
       </div>
     </main>
-    <script src="HorizontalScroll.js" charset="utf-8"></script>
+    <script src="HorizontalScroll.min.js" charset="utf-8"></script>
     <script>
 
       let populate = (selector, sensitivity) => {
         let wrapper = document.querySelector(selector);
-        console.log(wrapper);
         return new Promise (resolve => {
           for (var i = 0; i <= 30; i++) {
             let pane = document.createElement("div");
