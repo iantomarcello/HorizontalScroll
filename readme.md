@@ -82,3 +82,16 @@ happening.
 1. Its not necessary for the `container` element to be in  `overflow-x: auto`, 
 using the `hidden` value works as well should you want to remove the scroll bar.
 2. `slide` method is generally used with buttons to slide the contents.
+3. To make things looks nicer, you could use `scroll-behaviour` and `scroll-snap`:
+```css
+#container {
+  /* other rules */
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.slide {
+  /* other rules */
+  scroll-snap-align: center;
+}
+```
