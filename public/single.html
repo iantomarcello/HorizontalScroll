@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <title>Horizontal Scroll</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
-    <link href="style.min.css" rel="stylesheet">
+    <link href="./style.min.css" rel="stylesheet">
   </head>
   <body id="single">
     <main>
@@ -16,14 +16,14 @@
       </div>
       <div id="box" class="container">
         <div id="sens-1" class="wrapper">
-          <p class="pane-heading">Sensitivity: 1</p>
+          <p class="pane-heading">Sensitivity: </p>
           <div class="pane-container">
             <div class="pane-wrapper"></div>
           </div>
         </div>
       </div>
     </main>
-    <script src="HorizontalScroll.min.js" charset="utf-8"></script>
+    <script src="../dist/HorizontalScroll.min.js" charset="utf-8"></script>
     <script>
 
       let populate = (selector, sensitivity) => {
@@ -37,10 +37,27 @@
           }
           resolve();
         })
-        .then(() => new HorizontalScroll(selector, sensitivity))
+        .then(() => new HorizontalScroll(wrapper, sensitivity))
       }
 
-      populate("#sens-1 .pane-wrapper", 3);
+      const sensitivity = 3;
+      document.querySelector('.pane-heading').textContent += sensitivity;
+
+      (async () => {
+        let hs = await populate("#sens-1 .pane-wrapper", sensitivity);
+        window.addEventListener('keyup', ev => {
+          switch (ev.key) {
+            case 'ArrowRight':
+              hs.slide(1, false);
+              break;
+
+            case 'ArrowLeft':
+              hs.slide(-1, false);
+              break;
+          }
+        });
+      })();
+
 
     </script>
   </body>
