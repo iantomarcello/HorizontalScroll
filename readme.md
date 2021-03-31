@@ -52,10 +52,11 @@ which affects how much slides per mouse wheel tick.
 
 
 ## Methods
-### **slide** ( n: number ) : void
+### **slide** ( n: number, sensitivity: number ) : void
 Slides the scroller left or right programmatically by `n` slides. <br>
 `n` must be a non-zero interger to have an effect. Positive `n` slides to 
 the left, and vice-versa. <br>
+`sensitivity` is a multiplier for the scrolling, by default set to the sensitivity property of the class, which is, by default 1. <br>
 
 
 ## Events

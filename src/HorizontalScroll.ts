@@ -39,7 +39,7 @@ class HorizontalScroll {
     /// scroll on wheel
     this.element.addEventListener('wheel', ev => {
       let delta = ev.deltaY > 0 ? 1 : -1;
-      this.slide(delta, false);
+      this.slide(delta);
       delta > 0 ? this.dispatchEvent('wheeldown') : this.dispatchEvent('wheelup');
     })
   }
@@ -76,8 +76,8 @@ class HorizontalScroll {
     }
   }
 
-  public async slide(n : number, ignoreSensitivity = true) {
-    let multiplier = ignoreSensitivity ? 1 : this.sensitivity;
+  public async slide(n : number, sensitivity : number = this.sensitivity) {
+    let multiplier = sensitivity ?? this.sensitivity;
     if ( n !== 0 ) {
       let width = this.element.children[0].clientWidth;
       let delta = width * n * multiplier;
