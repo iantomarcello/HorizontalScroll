@@ -76,8 +76,7 @@ class HorizontalScroll {
     if ( ev instanceof MouseEvent ) {
       this.dragMouseDownPos = ev.clientX;
     }
-    // TODO: TouchEvent not defined in FF desktop
-    if ( ev instanceof TouchEvent ) {
+    if ( window.TouchEvent && ev instanceof TouchEvent ) {
       this.dragMouseDownPos = ev.touches[0].clientX;
     }
     this.dragStartPos = this.element.scrollLeft;
@@ -94,7 +93,7 @@ class HorizontalScroll {
       if ( ev instanceof MouseEvent ) {
         this.dragMouseMovePos = ev.clientX;
       }
-      if ( ev instanceof TouchEvent ) {
+      if ( window.TouchEvent && ev instanceof TouchEvent ) {
         this.dragMouseMovePos = ev.touches[0].clientX;
       }
       if (!ev.type.includes('touch')) {
