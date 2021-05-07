@@ -2,18 +2,26 @@
  *  HorizontalScroll
  *  Scrolls content in an overflowed element horizontally via wheel and drag on non touch devices
  *  Author: Ian Yong @ https://github.com/iantomarcello
- *  Version: 191116
+ *  Version: 210507
  */
 
 class HorizontalScroll {
+  /** Element that the events responds to, typically parent to `slides`. */
   element: HTMLElement;
+  /** Element that contains the slides. */
+  slides: HTMLElement;
+  /** How much slides per tick of scroll wheel. Ignored when touch. */
   sensitivity: number;
   dragState: boolean;
   dragStartPos: number;
   dragMouseDownPos: number;
   dragMouseMovePos: number;
 
-  constructor(element, sensitivity = 1) {
+  /**
+   * @param {HTMLElement} element 
+   * @param {number} sensitivity 
+   */
+  constructor(element: HTMLElement, sensitivity: number = 1, slides: null) {
     // NOTE: touch ignores sensitivity.
     this.sensitivity = sensitivity;
 
@@ -22,6 +30,12 @@ class HorizontalScroll {
       return null; 
     } else {
       this.element = element;
+
+      if ( !slides ) {
+        this.slides = element;
+      } else {
+        this.slides = slides;
+      }
     }
 
     /// drag states
@@ -44,11 +58,25 @@ class HorizontalScroll {
     })
   }
 
+  /**
+   * Sets a new HTMLElement as the slides container.
+   * @param newSlides The new slide container
+   */
+
+  setSlides(newSlides: HTMLElement) {
+    if ( newSlides instanceof HTMLElement ) {
+      this.slides = newSlides;
+    } else {
+      console.error(`'element' is not instances of HTMLELement`);
+    }
+  }
+
   private interactDown(ev: Event) {
     this.dragState = true;
     if ( ev instanceof MouseEvent ) {
       this.dragMouseDownPos = ev.clientX;
     }
+    // TODO: TouchEvent not defined in FF desktop
     if ( ev instanceof TouchEvent ) {
       this.dragMouseDownPos = ev.touches[0].clientX;
     }
@@ -79,7 +107,7 @@ class HorizontalScroll {
   public async slide(n : number, sensitivity : number = this.sensitivity) {
     let multiplier = sensitivity ?? this.sensitivity;
     if ( n !== 0 ) {
-      let width = this.element.children[0].clientWidth;
+      let width = this.slides.children[0].clientWidth;
       let delta = width * n * multiplier;
       this.element.scrollLeft += delta;
     } else {
